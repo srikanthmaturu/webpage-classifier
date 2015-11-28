@@ -54,9 +54,9 @@ def createSoup(url):
     global unvisited
     global count
     
-    fixed_url = fix_url(url)
-    if is_valid_url(fixed_url) and not (fixed_url in visited):
-    	#print "Now crawling: ", fixed_url
+    fixed_url = url
+    if is_valid_url(fixed_url):
+    	print "Now crawling: ", fixed_url
     	print fixed_url
     	try:
         	response = urllib.urlopen(fixed_url)
@@ -70,35 +70,42 @@ def createSoup(url):
     	cleaned_soup = cleanSoup(soup)
     	visited.add(fixed_url)
     	file_name = fixed_url + ".txt"
-    	#print file_name
+    	print file_name
     	s = file_name[7:]
     	s = s.replace("/","_")
-    	#print s
-    	#f = open(s, 'w+')
-    	#f.write(str(cleaned_soup))
-    	#f.close()
-        #print "Crawled: ", fixed_url
+    	print s
+    	f = open(s, 'w+')
+    	f.write(str(cleaned_soup))
+    	f.close()
+        print "Crawled: ", fixed_url
         count = count + 1
-        #print count
+        print count
     
-    	for link in soup.find_all('a'):
-			href = link.get('href')
-			if href:
-				#print href
-				fixed_href = fix_url(href)
-				if is_valid_url(fixed_href) and is_valid_webpage(fixed_href) and not (fixed_href in visited) and not (fixed_href in unvisited):
+    	#for link in soup.find_all('a'):
+		#	href = link.get('href')
+		#	if href:
+		#		#print href
+		#		fixed_href = fix_url(href)
+		#		if is_valid_url(fixed_href) and is_valid_webpage(fixed_href) and not (fixed_href in visited) and not (fixed_href in unvisited):
 					#print "Added to unvisited: ",fixed_href
-					unvisited.add(fixed_href)
-					createSoup(fixed_href)
+		#			unvisited.add(fixed_href)
+		#			createSoup(fixed_href)
 
     #for unvisitedpage in unvisited:
     	#if unvisitedpage not in visited:
 			#createSoup(unvisitedpage)
     
 if __name__ == '__main__':
-    args = sys.argv[1:]
-    if not args:
-        print >> sys.stderr, 'SYNTAX: unlCrawler.py [webpage]'
-        sys.exit(-1)
+    #args = sys.argv[1:]
+    #filename = args[0]
+    #print filename
+    #if not args:
+     #   print >> sys.stderr, 'SYNTAX: unlCrawler.py [document]'
+      #  sys.exit(-1)
 
-    createSoup(args[0])
+	linksfile = open("/home/pooja/Documents/UNL/Fall2015/ComputationOverLargeDataSets/Project/webpage-classifier/crawler/uncrawledLinks.txt", 'r')
+	link = linksfile.readline()
+	while link:
+		link = linksfile.readline()
+		print link
+		createSoup(link)

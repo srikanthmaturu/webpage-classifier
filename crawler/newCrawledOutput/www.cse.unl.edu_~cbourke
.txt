@@ -1,0 +1,1 @@
+function redirecthttps window location href http chrisbourke unl edu
