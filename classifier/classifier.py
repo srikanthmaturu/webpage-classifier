@@ -72,7 +72,7 @@ def classify(directory):
 if __name__ == '__main__':
         args = sys.argv[1:]
         if not args:
-            print >> sys.stderr, 'SYNTAX: classifier.py [webpage]'
+            print >> sys.stderr, 'SYNTAX: classifier.py [directory]'
             sys.exit(-1)
 
         classify(args[0])
