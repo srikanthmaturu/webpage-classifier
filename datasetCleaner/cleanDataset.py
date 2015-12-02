@@ -9,6 +9,7 @@ from nltk.corpus import stopwords
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
+from sklearn.ensemble import RandomForestClassifier
 
 import urllib
 import urllib2
@@ -57,12 +58,13 @@ def review_to_words(directory):
 
 
 		fw.close()
-		print "Cleaned and vectorized:",page
+		print "Cleaned",page
 		print
 		#vectorizer = CountVectorizer(analyzer = "word", tokenizer = None, preprocessor = None, stop_words = None,  max_features = 5000)
 
 
 		#print meaningful_words
+<<<<<<< HEAD
 	print "Total number of files cleaned and vectorized: ",count
 	vectorizer = TfidfVectorizer(token_pattern=r'\b[a-z]{2,}\b', max_df=0.3, min_df=2, sublinear_tf=True)
 	result = [(x,y) for x in os.walk(directory) for y in glob(os.path.join(x[0], '*.txt'))]
@@ -87,6 +89,11 @@ def review_to_words(directory):
 	#vectorizer = TfidfVectorizer(token_pattern=r'\b[a-z]{2,}\.[a-z]\b', max_df=0.3, min_df=2, sublinear_tf=True)
 
 
+=======
+	print "Total number of files cleaned: ",count
+	
+	
+>>>>>>> upstream/master
 if __name__ == '__main__':
 	args = sys.argv[1:]
 	if not args:
