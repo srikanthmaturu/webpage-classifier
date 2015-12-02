@@ -40,12 +40,13 @@ def classify(directory):
         y_train = []
 
         for (cat,page) in result:
-                fp = open(page,"rb")
-                cleaned_data = fp.read()
-                fp.close()
-                ls.append(cleaned_data)
-                # y_train.append(cat[0].split('/')[-2])
-                y_train.append(y_train_names.index(cat[0].split('/')[-2])+1)
+            # if cat[0].split('/')[-1] == 'texas':
+                    fp = open(page,"rb")
+                    cleaned_data = fp.read()
+                    fp.close()
+                    ls.append(cleaned_data)
+                    # y_train.append(cat[0].split('/')[-2])
+                    y_train.append(y_train_names.index(cat[0].split('/')[-2])+1)
 
         print "No of Pages : ", len(y_train)
         y_train = np.asarray(y_train)

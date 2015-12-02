@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import sys
 import re
 import os
@@ -13,9 +14,9 @@ import urllib
 import urllib2
 
 def review_to_words(directory):
-	
+
 	# Function to convert a raw review to a string of words
-	# The input is a single string (a raw movie review), and 
+	# The input is a single string (a raw movie review), and
 	# the output is a single string (a preprocessed movie review)
 	#
 	# 1. Remove HTML
@@ -29,38 +30,38 @@ def review_to_words(directory):
 		count += 1
 		print count
 		print "Cleaning:",page
-		review_text = BeautifulSoup(raw_review).get_text() 
+		review_text = BeautifulSoup(raw_review).get_text()
 		#
 		# 2. Remove non-letters
-		print "Removing non-letters..."		
-		letters_only = re.sub("[^a-zA-Z]", " ", review_text) 
+		print "Removing non-letters..."
+		letters_only = re.sub("[^a-zA-Z]", " ", review_text)
 		#
 		# 3. Convert to lower case, split into individual words
 		print "Converting to lower case and spliting to individual words..."
-		words = letters_only.lower().split()							 
+		words = letters_only.lower().split()
 		#
 		# 4. In Python, searching a set is much faster than searching
 		#   a list, so convert the stop words to a set
 		print "Removing stop words..."
-		stops = set(stopwords.words("english"))				  
-		# 
-		# 5. Remove stop words
-		meaningful_words = [w for w in words if not w in stops]   
+		stops = set(stopwords.words("english"))
 		#
-		# 6. Join the words back into one string separated by space, 
+		# 5. Remove stop words
+		meaningful_words = [w for w in words if not w in stops]
+		#
+		# 6. Join the words back into one string separated by space,
 		# and return the result.
 		f.close()
 		fw = open(page,"wb")
 		fw.write(" ".join( meaningful_words ))
 		#print train_data_features.shape
-		
-		
+
+
 		fw.close()
 		print "Cleaned and vectorized:",page
 		print
 		#vectorizer = CountVectorizer(analyzer = "word", tokenizer = None, preprocessor = None, stop_words = None,  max_features = 5000)
-		
-		
+
+
 		#print meaningful_words
 	print "Total number of files cleaned and vectorized: ",count
 	vectorizer = TfidfVectorizer(token_pattern=r'\b[a-z]{2,}\b', max_df=0.3, min_df=2, sublinear_tf=True)
@@ -74,9 +75,9 @@ def review_to_words(directory):
 		fp.close()
 		ls.append(cleaned_data)
 		y_train.append(cat[0].split('/')[-2])
-		
 
-	print "Preparing vectorizer"	
+
+	print "Preparing vectorizer"
 	X_train = vectorizer.fit_transform(ls)
 	#print set(y_train)
 
@@ -84,12 +85,12 @@ def review_to_words(directory):
 	#dist = np.sum(train_data_features, axis=0)
 	#print "Preparing vectorizer"
 	#vectorizer = TfidfVectorizer(token_pattern=r'\b[a-z]{2,}\.[a-z]\b', max_df=0.3, min_df=2, sublinear_tf=True)
-	
-	
+
+
 if __name__ == '__main__':
 	args = sys.argv[1:]
 	if not args:
 		print >> sys.stderr, 'SYNTAX: cleanDataset.py [directory]'
 		sys.exit(-1)
-		
+
 	review_to_words(args[0])

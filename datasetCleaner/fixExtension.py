@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import os
 from glob import glob
 import sys
@@ -24,7 +26,7 @@ def fixExtension(directory):
 		raw_data = ftxt.read()
 		ftxt.close
 		ftxtr = open(txt_extension, "wb")
-		
+
 		#print raw_data
 		rawdata_soup = " ".join(line.strip() for line in raw_data.split("\n"))
 		ftxtr.write(rawdata_soup)
